@@ -1,14 +1,14 @@
 /* In this repo your job is to write functions to make each function call work properly.
-Below is a sample problem 
+Below is a sample problem
 
   //code here for sayHi
 
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay);
    });
-   
-and what you should write is the sayHi function that makes the code above work, 
-    
+
+and what you should write is the sayHi function that makes the code above work,
+
    var sayHi = function(str, cb){
     cb(str);
    }
@@ -16,15 +16,18 @@ and what you should write is the sayHi function that makes the code above work,
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay); //should alert ('Hi Katie')'
    });
-    
+
 */
 
 
 // 1. Write a function called first that returns the first item of the array using a callback function
 
   // Code Here
+    function first(array, cb) {
+    return cb(array[0]);
+  }
 
-  
+
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
   console.log('The first name in names is ' + firstName);
@@ -36,8 +39,9 @@ first(names, function(firstName){
 // 2. Write a function called last which returns the last item of the array using a callback function.
 
   //Code Here
-
-
+    function last(array,cb){
+    return cb(array[array.length-1]);
+    }
 
 last(names, function(lastName){
   console.log('The last name in names is ' + lastName);
@@ -46,25 +50,29 @@ last(names, function(lastName){
 
 
 
-// 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication. 
+// 3. Write a function called multiply that multiplies two numbers. Invoke the callback with the result of the multiplication.
 
   //Code Here
-
-
+function multiply(num1, num2, cb){
+  // answer = cb(num1*num2);
+  var answer = num1 * num2;
+  cb(answer);
+}
 
 multiply(4, 3, function(answer){
   console.log('The answer is ' + answer); //should console.log 12
 })
 
 
-
-// 4. Write a function called contains that checks if a name exists in an array. 
-// If it does, invoke the callback with true as an argument. 
+// 4. Write a function called contains that checks if a name exists in an array.
+// If it does, invoke the callback with true as an argument.
 // If the name does not exist, invoke the callback with false as an argument.
 
-  //Code Here 
+  //Code Here
+function contains(array, name, cb) {
 
-
+  return cb(array.includes(name)); //returns t/f
+}
 
 
 contains(names, 'Colt', function(result){
@@ -82,6 +90,19 @@ contains(names, 'Colt', function(result){
 
   //Code Here
 
+  function uniq(names, cb){
+      var arr = [];
+      for (var i = 0; i < names.length; i++){
+        if (arr.indexOf(names[i]) >= 0){
+        }
+        else{
+        arr.push(names[i]);
+      }
+    }
+    names = arr;
+    cb(names)
+  }
+
 
 
 uniq(names, function(uniqArr){
@@ -89,10 +110,18 @@ uniq(names, function(uniqArr){
 });
 
 
-// 6. Write a function called each that takes in an array of names. For each name in the array, invoke the callback and pass in the name and the name's index as arguments.
+// 6. Write a function called each that takes in an array of names. For each name in the array,
+// invoke the callback and pass in the name and the name's index as arguments.
 
-    //Code Here 
 
+
+
+    //Code Here
+function each(array, cb) { //return the index and the item name
+for (var i=0; i<array.length; i++) {
+  cb(array[i], i);
+}
+}
 
 
 each(names, function(item, indice){
@@ -105,7 +134,14 @@ each(names, function(item, indice){
 // When the correct user object is found, invoke the callback with the user object as an argument.
 
 // Code here
-
+function getUserById(users, id, cb){
+  //searches for user by ID
+  for (var i=0; i<users.length; i++) {
+    if (users[i].id===id) {
+      cb(users[i]);
+    }
+  }
+}
 
 
 var users = [
@@ -130,5 +166,5 @@ var users = [
 ];
 
 getUserById(users, '16t', function(user){
-  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address);
 });
